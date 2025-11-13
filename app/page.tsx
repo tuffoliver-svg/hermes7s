@@ -1,65 +1,101 @@
 import Image from "next/image";
+import { CircularNode } from "@/components/CircularNode";
+import { Badge } from "@/components/ui/badge";
+import { singleSData, calculateOverallAlignment, SName } from "@/data/7sData";
+
+const nodePositions: { name: SName; className: string }[] = [
+  { name: "Strategy", className: "top-[3%] left-1/2 -translate-x-1/2" },
+  { name: "Structure", className: "top-[18%] right-[6%]" },
+  { name: "Systems", className: "bottom-[18%] right-[6%]" },
+  { name: "Staff", className: "bottom-[3%] left-1/2 -translate-x-1/2" },
+  { name: "Style", className: "bottom-[18%] left-[6%]" },
+  { name: "Skills", className: "top-[18%] left-[6%]" },
+];
 
 export default function Home() {
+  const overallScore = calculateOverallAlignment();
+  const centerS = "Shared Values";
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="h-screen w-full bg-[hsl(var(--hermes-cream))]">
+      <div className="mx-auto flex h-full w-full max-w-[1600px] px-4 py-1 sm:px-6 sm:py-2 lg:px-12 lg:py-3">
+        <div className="flex flex-1 flex-col gap-4 min-h-0 lg:grid lg:grid-cols-[minmax(300px,420px)_1fr] lg:gap-6 xl:gap-8 lg:items-center">
+          <section className="flex flex-col justify-center gap-3 lg:gap-4">
+            <div className="flex flex-col gap-5">
+              <div>
+                <p className="text-[0.55rem] font-semibold uppercase tracking-[0.35em] text-muted-foreground mb-0.5">
+                  Insight Dashboard
+                </p>
+                <h1 className="text-xl font-serif font-bold uppercase tracking-tight text-foreground sm:text-2xl lg:text-3xl">
+                  Hermès McKinsey 7S Explorer
+                </h1>
+                <p className="text-[0.65rem] text-muted-foreground mt-1">
+                  Created by Ollie Tuff
+                </p>
+              </div>
+              <p className="text-[0.7rem] leading-relaxed text-muted-foreground sm:text-xs">
+                Explore how each element of the McKinsey 7S framework works together
+                inside Hermès. Track alignment in real time and drill into the
+                relationships that keep the brand cohesive.
+              </p>
+            </div>
+            <div className="inline-flex flex-wrap items-center gap-2.5 rounded-2xl border border-border/70 bg-white/80 px-4 py-2 shadow-sm backdrop-blur">
+              <span className="text-[0.6rem] font-medium uppercase tracking-wide text-muted-foreground">
+                Overall Alignment Score
+              </span>
+              <Badge className="bg-[hsl(var(--hermes-orange))] px-2.5 py-0.5 text-xs font-bold text-white hover:bg-[hsl(var(--hermes-orange))]/90">
+                {overallScore}/10
+              </Badge>
+            </div>
+          </section>
+
+          <section className="flex-1 min-h-0 rounded-[2rem] border border-border/60 bg-white/80 p-3 shadow-xl backdrop-blur-sm sm:p-4 lg:p-6">
+            <div className="relative h-full w-full flex items-center justify-center">
+              <div className="relative w-full h-full max-w-[600px] max-h-[600px]" style={{ aspectRatio: '1' }}>
+                <svg
+                  className="pointer-events-none absolute inset-0 h-full w-full text-[hsl(var(--hermes-orange))]"
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="xMidYMid meet"
+                >
+                  <g stroke="currentColor" strokeWidth="0.35" opacity="0.45">
+                    <line x1="50" y1="50" x2="50" y2="10" />
+                    <line x1="50" y1="50" x2="83" y2="25" />
+                    <line x1="50" y1="50" x2="83" y2="75" />
+                    <line x1="50" y1="50" x2="50" y2="90" />
+                    <line x1="50" y1="50" x2="17" y2="75" />
+                    <line x1="50" y1="50" x2="17" y2="25" />
+                    <line x1="50" y1="10" x2="83" y2="25" />
+                    <line x1="83" y1="25" x2="83" y2="75" />
+                    <line x1="83" y1="75" x2="50" y2="90" />
+                    <line x1="50" y1="90" x2="17" y2="75" />
+                    <line x1="17" y1="75" x2="17" y2="25" />
+                    <line x1="17" y1="25" x2="50" y2="10" />
+                    <line x1="50" y1="10" x2="50" y2="90" />
+                    <line x1="17" y1="25" x2="83" y2="75" />
+                    <line x1="83" y1="25" x2="17" y2="75" />
+                  </g>
+                </svg>
+
+                <div className="relative h-full w-full">
+                  <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
+                    <CircularNode
+                      name={centerS}
+                      score={singleSData[centerS].score}
+                      isCenter
+                    />
+                  </div>
+
+                  {nodePositions.map(({ name, className }) => (
+                    <div key={name} className={`absolute z-10 ${className}`}>
+                      <CircularNode name={name} score={singleSData[name].score} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
